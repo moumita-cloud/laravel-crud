@@ -96,4 +96,17 @@ class UserController extends Controller
             'photo' => $imageName,
         ]);
     }
+
+    public function delete($id){
+        $user = User::find($id);
+
+        $path = public_path('storage/').$user->photo;
+        if(file_exists($path)){
+            unlink($path);
+        }
+
+        $user->delete();
+
+        return redirect()->route();
+    }
 }
